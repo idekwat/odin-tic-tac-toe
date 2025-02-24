@@ -2,17 +2,26 @@
     padding: 0;
     margin: 0;
 }
-
-.container {
-    background-color: cadetblue;
+body {
+    background-color: burlywood;
 }
+
+
+.scoreContainer {
+    justify-self: center;
+    width: 50vh;
+    background-color: whitesmoke;
+    margin: 20px 0px 20px 0px;
+    padding: 20px;
+}
+
 .gameContainer {
     justify-self: center;
 
     .tictactoe {
-        height: 200px;
-        width: 200px;
-        float: left;
+        border-radius: 10px;
+        height: 20vh;
+        width: 20vh;
         border: none;
     }
 

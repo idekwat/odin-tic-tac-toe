@@ -1,3 +1,4 @@
+playTicTacToe();
 
 function playTicTacToe() {
     const placepiece = document.querySelectorAll(".tictactoe");
@@ -5,7 +6,11 @@ function playTicTacToe() {
 
     placepiece.forEach((button) => {
         button.onclick = () => {
-            buttonValues[button.value] = 2;
+            console.log(button.value);
         }
     })
+}
+
+function addPiece() {
+    
 }
