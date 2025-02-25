@@ -28,4 +28,8 @@ body {
     .tictactoe:hover {
         background-color: gray;
     }
+
+    .tictactoe:disabled {
+        background-color: brown;
+    }
 }
