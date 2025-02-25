@@ -1,7 +1,7 @@
 
 playTicTacToe();
 
-const BoardPieces = ["", "", "", "", "", "", "", "", ""];
+const BoardPieces = [];
 
 /*
 function InitializeGame() {
@@ -17,7 +17,7 @@ function InitializeGame() {
 function playTicTacToe() {
     const placepiece = document.querySelectorAll(".tictactoe");
 
-    let currentPiece = "O";
+    let currentPiece = "X";
     let hasWinner = false;
     let currentRound = 1
 
@@ -25,18 +25,23 @@ function playTicTacToe() {
         button.onclick = () => {
             BoardPieces[button.value] = currentPiece;
             console.log(BoardPieces);
+            if(currentRound % 2 == 1) {
+                currentPiece = "O";
+            }
+            else  {
+                currentPiece = "X";
+            }
             if(!hasWinner) {
-                CheckBoardState(hasWinner);
+                CheckBoardState();
+                currentRound++;
             }
             button.disabled = true;
         }
     })
 
-
-
 }
 
-function CheckBoardState(hasWinner){
+function CheckBoardState(){
     let topleft = BoardPieces[0];
     let top = BoardPieces[1];
     let topright = BoardPieces[2];
@@ -47,27 +52,44 @@ function CheckBoardState(hasWinner){
     let bottom = BoardPieces[7];
     let botright = BoardPieces[8];
 
-    console.log(hasWinner);
-    let checkwinner;
+    let winner = false;
 
-    switch(!hasWinner) {
-        case(topleft == top && top == topright): //top ---
-        checkwinner == true
-        console.log("wat");
+    switch(!winner) {
+        case(topleft == "X" && top == "X" && topright == "X"): //top ---
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case(topleft == middle && middle == botright): // slant  \
+        /*
+        case(topleft == middle && middle == botright && botright == topleft): // slant  \
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case(topleft == left && left == botleft): // left |
+        case(topleft == left && left == botleft && botleft == topleft): // left |
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case(top == middle && middle == bottom): // middle |
+        case(top == middle && middle == bottom && bottom == top): // middle |
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case(topright == middle && middle == botleft): // slant /
+        case(topright == middle && middle == botleft && botleft == topright): // slant /
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case (topright == right && right == botright): // right |
+        case (topright == right && right == botright && botright == topright): // right |
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case (botleft == bottom && bottom == botright): // bottom ---
+        case (botleft == bottom && bottom == botright && botright == botleft): // bottom ---
+        winner = true;
+        console.log("wat " +winner);
         break;
-        case (left == middle && middle == right): // middle ---
+        case (left == middle && middle == right && right == left): // middle ---
+        winner = true;
+        console.log("wat " +winner);
+        break;*/
+        default:
+        winner = false;
         break;
 
     }
