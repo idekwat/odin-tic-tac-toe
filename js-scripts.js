@@ -23,18 +23,23 @@ function playTicTacToe() {
 
     placepiece.forEach((button) => {
         button.onclick = () => {
+            button.textContent = currentPiece;
             BoardPieces[button.value] = currentPiece;
-            console.log(BoardPieces);
             if(currentRound % 2 == 1) {
                 currentPiece = "O";
             }
             else  {
                 currentPiece = "X";
             }
-            if(!hasWinner) {
-                CheckBoardState();
+            if(!hasWinner && currentRound<9) {
                 currentRound++;
+                setTimeout(CheckBoardState, 10);
             }
+            else if(!hasWinner && currentRound == 9)
+            {
+                setTimeout(alert("its a tie"),100);
+            }
+            console.log(currentRound);
             button.disabled = true;
         }
     })
@@ -53,44 +58,104 @@ function CheckBoardState(){
     let botright = BoardPieces[8];
 
     let winner = false;
+    let winningPiece;
 
     switch(!winner) {
-        case(topleft == "X" && top == "X" && topright == "X"): //top ---
+        case(topleft == "X" && top == "X" && topright == "X"): //top --- x
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
         break;
-        /*
-        case(topleft == middle && middle == botright && botright == topleft): // slant  \
+        case(topleft == "O" && top == "O" && topright == "O"): //top --- O
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
         break;
-        case(topleft == left && left == botleft && botleft == topleft): // left |
+
+        case(left == "X" && middle == "X" && right == "X"): //middle --- x
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
         break;
-        case(top == middle && middle == bottom && bottom == top): // middle |
+        case(left == "O" && middle == "O" && right == "O"): //middle --- o
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
         break;
-        case(topright == middle && middle == botleft && botleft == topright): // slant /
+
+        case(botleft == "X" && bottom == "X" && botright == "X"): //bottom --- x
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
         break;
-        case (topright == right && right == botright && botright == topright): // right |
+        case(botleft == "O" && bottom == "O" && botright == "O"): //bottom --- o
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
         break;
-        case (botleft == bottom && bottom == botright && botright == botleft): // bottom ---
+
+        case(topleft == "X" && left == "X" && botleft == "X"): //left | x
         winner = true;
-        console.log("wat " +winner);
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
         break;
-        case (left == middle && middle == right && right == left): // middle ---
+        case(topleft == "O" && left == "O" && botleft == "O"): //left | o
         winner = true;
-        console.log("wat " +winner);
-        break;*/
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
+        break;
+
+        case(top == "X" && middle == "X" && bottom == "X"): //middle | x
+        winner = true;
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
+        break;
+        case(top == "O" && middle == "O" && bottom == "O"): //middle | o
+        winner = true;
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
+        break;
+
+        case(topright == "X" && right == "X" && botright == "X"): //right | x
+        winner = true;
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
+        break;
+        case(topright == "O" && right == "O" && botright == "O"): //right | o
+        winner = true;
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
+        break;
+        
+        case(topleft == "X" && middle == "X" && botright == "X"): // slant \ x
+        winner = true;
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
+        break;
+        case(topleft == "O" && middle == "O" && botright == "O"): // slant \ o
+        winner = true;
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
+        break;
+
+        case(topright == "X" && middle == "X" && botleft == "X"): // slant / x
+        winner = true;
+        winningPiece = "X"
+        AnnounceWinner(winningPiece);
+        break;
+        case(topright == "O" && middle == "O" && botleft == "O"): // slant / o
+        winner = true;
+        winningPiece = "O"
+        AnnounceWinner(winningPiece);
+        break;
+
         default:
         winner = false;
         break;
-
     }
+}
+
+function AnnounceWinner(winningPiece) {
+    alert(winningPiece + " wins");
+
 }
