@@ -9,6 +9,13 @@ newGame.onclick = (e) => {
 }
 
 function InitializeGame() {
+    for(let i = 0; i<BoardPieces.length; i++) {
+        BoardPieces[i] = "";
+    }
+    placepiece.forEach(button => {
+        button.innerHTML = "&nbsp";
+        button.disabled = false;
+    });
     const p1name = document.getElementById("Player1");
     const p2name = document.getElementById("Player2");
     let isplayer = prompt("Player 1 name", "Player1");
