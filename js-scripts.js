@@ -1,21 +1,25 @@
 
-playTicTacToe();
-
+const placepiece = document.querySelectorAll(".tictactoe");
+const startgame = document.getElementById("newGame");
 const BoardPieces = [];
 
-/*
+
+newGame.onclick = (e) => {
+    InitializeGame();
+}
+
 function InitializeGame() {
-    let noWinner = true;
+    const p1name = document.getElementById("Player1");
+    const p2name = document.getElementById("Player2");
+    let isplayer = prompt("Player 1 name", "Player1");
+    let isplayer2 = prompt("Player 2 name", "Player2");
+    p1name.textContent = isplayer;
+    p2name.textContent = isplayer2;
 
-    while(!noWinner) {
-        playTicTacToe();
-        console.log(noWinner);
-        CheckBoardState(noWinner);
-    }
-}*/
+    playTicTacToe(isplayer, isplayer2);
+}
 
-function playTicTacToe() {
-    const placepiece = document.querySelectorAll(".tictactoe");
+function playTicTacToe(isplayer, isplayer2) {
 
     let currentPiece = "X";
     let hasWinner = false;
@@ -33,7 +37,7 @@ function playTicTacToe() {
             }
             if(!hasWinner && currentRound<9) {
                 currentRound++;
-                setTimeout(CheckBoardState, 10);
+                setTimeout(CheckBoardState(isplayer, isplayer2), 10);
             }
             else if(!hasWinner && currentRound == 9)
             {
@@ -43,10 +47,9 @@ function playTicTacToe() {
             button.disabled = true;
         }
     })
-
 }
 
-function CheckBoardState(){
+function CheckBoardState(isplayer, isplayer2){
     let topleft = BoardPieces[0];
     let top = BoardPieces[1];
     let topright = BoardPieces[2];
@@ -58,95 +61,94 @@ function CheckBoardState(){
     let botright = BoardPieces[8];
 
     let winner = false;
-    let winningPiece;
 
     switch(!winner) {
         case(topleft == "X" && top == "X" && topright == "X"): //top --- x
         winner = true;
-        winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
+
         break;
         case(topleft == "O" && top == "O" && topright == "O"): //top --- O
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(left == "X" && middle == "X" && right == "X"): //middle --- x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(left == "O" && middle == "O" && right == "O"): //middle --- o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(botleft == "X" && bottom == "X" && botright == "X"): //bottom --- x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(botleft == "O" && bottom == "O" && botright == "O"): //bottom --- o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(topleft == "X" && left == "X" && botleft == "X"): //left | x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(topleft == "O" && left == "O" && botleft == "O"): //left | o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(top == "X" && middle == "X" && bottom == "X"): //middle | x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(top == "O" && middle == "O" && bottom == "O"): //middle | o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(topright == "X" && right == "X" && botright == "X"): //right | x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(topright == "O" && right == "O" && botright == "O"): //right | o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
         
         case(topleft == "X" && middle == "X" && botright == "X"): // slant \ x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(topleft == "O" && middle == "O" && botright == "O"): // slant \ o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         case(topright == "X" && middle == "X" && botleft == "X"): // slant / x
         winner = true;
         winningPiece = "X"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer);
         break;
         case(topright == "O" && middle == "O" && botleft == "O"): // slant / o
         winner = true;
         winningPiece = "O"
-        AnnounceWinner(winningPiece);
+        AnnounceWinner(isplayer2);
         break;
 
         default:
@@ -157,5 +159,8 @@ function CheckBoardState(){
 
 function AnnounceWinner(winningPiece) {
     alert(winningPiece + " wins");
-
+    placepiece.forEach(button => {
+        button.disabled = true;
+    });
+    startgame.textContent = "Play Again?";
 }
